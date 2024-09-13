@@ -1,0 +1,47 @@
+type Query {
+    listAgents: [Agent]
+    getAgent(id: ID!): Agent! 
+}
+
+type Mutation {
+  createAgent(input: AgentInput!): CreateAgentResponse
+}
+
+type Agent {
+   id: ID!
+  name: String!
+  mobileNumber: String!
+  dob: String!
+  address: String!
+  postOffice: String!
+  pincode: String!
+  district: String!
+  state: String!
+  country: String!
+  punchayathMunicipality: String!
+  wardNumber: Int!
+  cdsName: String
+  photo: String!
+}
+
+input AgentInput {
+  name: String!
+  mobileNumber: String!
+  dob: String!
+  address: String!
+  postOffice: String!
+  pincode: String!
+  district: String!
+  state: String!
+  country: String!
+  punchayathMunicipality: String!
+  wardNumber: Int!
+  cdsName: String
+  photo: String!
+}
+
+type CreateAgentResponse {
+  message: String!
+  agent: Agent
+}
+
