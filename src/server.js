@@ -2,7 +2,7 @@ import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { typeDefs } from './schema/index.js';
-import resolvers from './resolvers/agent.resolvers.js';
+import { resolvers } from './resolvers/index.js';
 import cors from 'cors';
 import connectDB from './database/db.js';
 import dotenv from 'dotenv';
