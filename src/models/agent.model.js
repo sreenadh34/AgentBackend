@@ -16,6 +16,9 @@ const agentSchema = new mongoose.Schema(
     cdsName: { type: String },
     photo: { type: String, required: true },
     agentID: { type: String, unique: true, required: true },
+    referrals: { type: Array, default: 0 },
+    otp: { type: String },
+    otpExpiresAt: { type: Date },
   },
   { timestamps: true }
 );

@@ -10,7 +10,15 @@ export const getAgent = async (_, { id }) => {
 };
 
 export const createAgent = async (_, { input }) => {
-  const uniqueId = generateUniqueId();
+  let uniqueId;
+  let agentExists = true;
+
+  // Loop until a unique agentID is found
+  while (agentExists) {
+    uniqueId = generateUniqueId();
+    agentExists = await Agent.exists({ agentID: uniqueId });
+  }
+
   const agent = new Agent({ ...input, agentID: uniqueId });
 
   await agent.save();
