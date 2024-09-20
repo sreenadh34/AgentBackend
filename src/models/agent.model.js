@@ -19,6 +19,7 @@ const agentSchema = new mongoose.Schema(
     referrals: { type: Array, default: 0 },
     otp: { type: String },
     otpExpiresAt: { type: Date },
+    isVerified: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

@@ -1,14 +1,35 @@
 type Query {
-    listAgents: [Agent]
-    getAgent(id: ID!): Agent! 
+  listAgents: [Agent]
+  getAgent(id: ID!): Agent!
 }
 
 type Mutation {
   createAgent(input: AgentInput!): CreateAgentResponse
+  agentLogin(input: agentLoginInput!): commonResponse
+  verifyOtp(input: verifyOtpInput!): verifyOtpResponse
+}
+
+type commonResponse {
+  message: String!
+  status: Boolean!
+}
+
+type verifyOtpResponse {
+  message: String!
+  status: Boolean!
+}
+
+type agentLoginInput {
+  mobileNumber: String!
+}
+
+type verifyOtpInput {
+  mobileNumber: String!
+  otp: String!
 }
 
 type Agent {
-   id: ID!
+  id: ID!
   name: String!
   mobileNumber: String!
   dob: String!
@@ -44,4 +65,3 @@ type CreateAgentResponse {
   message: String!
   agent: Agent
 }
-
