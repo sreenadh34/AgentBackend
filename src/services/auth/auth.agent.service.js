@@ -2,6 +2,9 @@ import Agent from "../../models/agent.model.js";
 import { generateUniqueId } from "../../utils/generateId.js";
 import twilio from "twilio";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -61,7 +64,7 @@ export const agentLogin = async (_, { input }) => {
 
   return {
     message: "OTP sent successfully",
-    status: 200,
+    status: "200",
   };
 };
 
@@ -73,18 +76,24 @@ export const agentVerifyOtp = async (_, { input }) => {
   if (!agent) {
     return {
       message: "Agent not found",
+      token: "",
+      status: "500",
     };
   }
 
   if (agent.otp !== input.otp) {
     return {
       message: "Invalid OTP",
+      token: "",
+      status: "500",
     };
   }
 
   if (agent.otpExpiresAt < new Date()) {
     return {
       message: "OTP expired",
+      token: "",
+      status: "500",
     };
   }
 
@@ -99,6 +108,6 @@ export const agentVerifyOtp = async (_, { input }) => {
   return {
     message: "OTP verified successfully",
     token,
-    status: 200,
+    status: "200",
   };
 };

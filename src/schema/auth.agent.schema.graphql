@@ -5,25 +5,26 @@ type Query {
 
 type Mutation {
   createAgent(input: AgentInput!): CreateAgentResponse
-  agentLogin(input: agentLoginInput!): commonResponse
-  verifyOtp(input: verifyOtpInput!): verifyOtpResponse
+  agentLogin(input: agentLoginInput!): CommonResponse
+  agentVerifyOtp(input: verifyOtpInput!): verifyOtpResponse
 }
 
-type commonResponse {
-  message: String!
-  status: Boolean!
+type CommonResponse {
+  message: String
+  status: String
 }
 
 type verifyOtpResponse {
-  message: String!
-  status: Boolean!
+  message: String
+  token: String
+  status: String
 }
 
-type agentLoginInput {
+input agentLoginInput {
   mobileNumber: String!
 }
 
-type verifyOtpInput {
+input verifyOtpInput {
   mobileNumber: String!
   otp: String!
 }
