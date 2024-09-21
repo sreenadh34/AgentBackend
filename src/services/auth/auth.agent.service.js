@@ -22,6 +22,16 @@ export const createAgent = async (_, { input }) => {
   let uniqueId;
   let agentExists = true;
 
+  // Check if the mobile number already exists
+  const existingAgent = await Agent.findOne({
+    mobileNumber: input.mobileNumber,
+  });
+  if (existingAgent) {
+    throw new Error(
+      "This mobile number is already associated with an existing agent. Please Login."
+    );
+  }
+
   // Loop until a unique agentID is found
   while (agentExists) {
     uniqueId = generateUniqueId();
@@ -32,8 +42,13 @@ export const createAgent = async (_, { input }) => {
 
   await agent.save();
 
+  const token = jwt.sign({ uerId: agent._id }, process.env.JWT_SECRET, {
+    expiresIn: "12d",
+  });
+
   return {
     message: "Agent created successfully",
+    token,
     agent: {
       id: uniqueId,
       name: agent.name,
@@ -49,7 +64,7 @@ export const agentLogin = async (_, { input }) => {
     };
   }
 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const otp = Math.floor(1000 + Math.random() * 9000).toString();
   const otpExpiresAt = new Date(Date.now() + 4 * 60 * 1000); // 4 mints expiry
 
   agent.otp = otp;
@@ -74,27 +89,15 @@ export const agentVerifyOtp = async (_, { input }) => {
   });
 
   if (!agent) {
-    return {
-      message: "Agent not found",
-      token: "",
-      status: "500",
-    };
+    throw new Error("Agent not found");
   }
 
   if (agent.otp !== input.otp) {
-    return {
-      message: "Invalid OTP",
-      token: "",
-      status: "500",
-    };
+    throw new Error("Invalid OTP");
   }
 
   if (agent.otpExpiresAt < new Date()) {
-    return {
-      message: "OTP expired",
-      token: "",
-      status: "500",
-    };
+    throw new Error("OTP expired");
   }
 
   const token = jwt.sign({ uerId: agent._id }, process.env.JWT_SECRET, {

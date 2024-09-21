@@ -30,20 +30,21 @@ input verifyOtpInput {
 }
 
 type Agent {
-  id: ID!
-  name: String!
-  mobileNumber: String!
-  dob: String!
-  address: String!
-  postOffice: String!
-  pincode: String!
-  district: String!
-  state: String!
-  country: String!
-  punchayathMunicipality: String!
-  wardNumber: Int!
+  id: ID
+  name: String
+  mobileNumber: String
+  dob: String
+  address: String
+  postOffice: String
+  pincode: String
+  district: String
+  state: String
+  country: String
+  punchayathMunicipality: String
+  wardNumber: String
   cdsName: String
-  photo: String!
+  photo: String
+  agentID: String
 }
 
 input AgentInput {
@@ -57,12 +58,13 @@ input AgentInput {
   state: String!
   country: String!
   punchayathMunicipality: String!
-  wardNumber: Int!
+  wardNumber: String!
   cdsName: String
   photo: String!
 }
 
 type CreateAgentResponse {
   message: String!
+  token: String!
   agent: Agent
 }
