@@ -72,8 +72,8 @@ export const agentLogin = async (_, { input }) => {
   await agent.save();
 
   await twilioClient.messages.create({
-    body: `Your OTP is ${otp}`,
-    from: process.env.TWILIO_PHONE_NUMBER,
+    body: `Your OTP for logging into Eduartista is: ${otp}. Please enter this code to continue. This code is valid for 4 minutes.`,
+    from: "+13142660353",
     to: input.mobileNumber,
   });
 
