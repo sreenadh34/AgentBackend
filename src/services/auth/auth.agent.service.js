@@ -50,8 +50,9 @@ export const createAgent = async (_, { input }) => {
     message: "Agent created successfully",
     token,
     agent: {
-      id: uniqueId,
       name: agent.name,
+      photo: agent.photo,
+      agentID: agent.agentID,
     },
   };
 };
