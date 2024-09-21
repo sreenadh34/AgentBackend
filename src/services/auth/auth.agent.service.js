@@ -42,7 +42,7 @@ export const createAgent = async (_, { input }) => {
 
   await agent.save();
 
-  const token = jwt.sign({ uerId: agent._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ uerId: agent._id }, "123456", {
     expiresIn: "12d",
   });
 
