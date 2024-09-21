@@ -10,6 +10,8 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = twilio(accountSid, authToken);
 
+const secret = process.env.JWT_SECRET || "123456";
+
 export const listAgents = async () => {
   return await Agent.find({});
 };
@@ -42,7 +44,7 @@ export const createAgent = async (_, { input }) => {
 
   await agent.save();
 
-  const token = jwt.sign({ uerId: agent._id }, "123456", {
+  const token = jwt.sign({ uerId: agent._id }, secret, {
     expiresIn: "12d",
   });
 
@@ -101,7 +103,7 @@ export const agentVerifyOtp = async (_, { input }) => {
     throw new Error("OTP expired");
   }
 
-  const token = jwt.sign({ uerId: agent._id }, "123456", {
+  const token = jwt.sign({ uerId: agent._id }, secret, {
     expiresIn: "12d",
   });
 
