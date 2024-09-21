@@ -101,7 +101,7 @@ export const agentVerifyOtp = async (_, { input }) => {
     throw new Error("OTP expired");
   }
 
-  const token = jwt.sign({ uerId: agent._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ uerId: agent._id }, "123456", {
     expiresIn: "12d",
   });
 
