@@ -17,6 +17,7 @@ type CommonResponse {
 type verifyOtpResponse {
   message: String
   token: String
+  name:String
   status: String
 }
 
