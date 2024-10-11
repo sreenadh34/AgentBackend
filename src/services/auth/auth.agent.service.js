@@ -114,6 +114,7 @@ export const agentVerifyOtp = async (_, { input }) => {
   return {
     message: "OTP verified successfully",
     token,
+    name:agent.name,
     status: "200",
   };
 };
