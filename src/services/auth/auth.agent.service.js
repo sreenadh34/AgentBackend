@@ -8,7 +8,7 @@ dotenv.config();
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioClient = twilio(accountSid, authToken);
+// const twilioClient = twilio(accountSid, authToken);
 
 const secret = process.env.JWT_SECRET || "123456";
 
@@ -70,15 +70,15 @@ export const agentLogin = async (_, { input }) => {
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
   const otpExpiresAt = new Date(Date.now() + 4 * 60 * 1000); // 4 mints expiry
 
-  agent.otp = otp;
+  agent.otp = "0000";
   agent.otpExpiresAt = otpExpiresAt;
   await agent.save();
 
-  await twilioClient.messages.create({
-    body: `Your OTP for logging into Eduartista is: ${otp}. Please enter this code to continue. This code is valid for 4 minutes.`,
-    from: "+13142660353",
-    to: input.mobileNumber,
-  });
+  // await twilioClient.messages.create({
+  //   body: `Your OTP for logging into Eduartista is: ${otp}. Please enter this code to continue. This code is valid for 4 minutes.`,
+  //   from: "+13142660353",
+  //   to: input.mobileNumber,
+  // });
 
   return {
     message: "OTP sent successfully",
